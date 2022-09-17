@@ -22,7 +22,6 @@ export class AppComponent
 
     this.dialog.open(DialogComponent,
       {
-        width: '250px',
         data : {
          animal : 'panda'
         }
