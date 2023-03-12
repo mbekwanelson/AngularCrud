@@ -1,0 +1,23 @@
+{
+  "productList": [
+    {
+      "productName": "Taghe",
+      "productCategory": "Vegetables",
+      "productAge": "Brand New",
+      "price": 880,
+      "comment": "Tagheur Watch made with kindness",
+      "date": "2023-03-12T22:00:00.000Z",
+      "id": 1
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
