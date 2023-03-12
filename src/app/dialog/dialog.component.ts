@@ -16,11 +16,14 @@ export class DialogComponent implements OnInit {
   //constructor(public dialogRef: MatDialogRef<DialogComponent>,@Inject(MAT_DIALOG_DATA) public data: IDialogData) {}
   ProductAgeList = ["Brand New", "Second Hand","Refurbished"];
   addProductForm! : FormGroup;
+  actionBtn : string = "Save";
 
   constructor(private formbuilder : FormBuilder,
     private apiService: ApiService,
     private dialogRef : MatDialogRef<DialogComponent>,
-    private _snackBar: MatSnackBar)
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public editData : any
+  )
   {
 
 
@@ -36,24 +39,58 @@ export class DialogComponent implements OnInit {
         comment : ['',Validators.required],
         date : ['',Validators.required]
       });
+
+      if(this.editData)
+      {
+        this.actionBtn = "Update";
+        this.addProductForm.controls['productName'].setValue(this.editData.productName);
+        this.addProductForm.controls['productCategory'].setValue(this.editData.productCategory);
+        this.addProductForm.controls['productAge'].setValue(this.editData.productAge);
+        this.addProductForm.controls['price'].setValue(this.editData.price);
+        this.addProductForm.controls['comment'].setValue(this.editData.comment);
+        this.addProductForm.controls['date'].setValue(this.editData.date);
+      }
+
+
   }
 
   addProduct(){
-    if(this.addProductForm.valid){
-      this.apiService.postProduct(this.addProductForm.value)
-      .subscribe({
-        next:(res)=> {
 
-          this.openSnackBar("Product Added Successfully","X",3);
-          this.addProductForm.reset();
-          this.dialogRef.close();
-        },
-        error:()=> {
+    if(!this.editData){
 
-          this.openSnackBar("Product Could not be saved","X",3);
-        }
-      });
+      if(this.addProductForm.valid){
+        this.apiService.postProduct(this.addProductForm.value)
+        .subscribe({
+          next:(res)=> {
+
+            this.openSnackBar("Product Added Successfully","X",3);
+            this.addProductForm.reset();
+            this.dialogRef.close("save");
+          },
+          error:()=> {
+
+            this.openSnackBar("Product Could not be saved","X",3);
+          }
+        });
+      }
     }
+    else{
+
+      this.apiService.updateProduct(this.addProductForm.value,this.editData.id).subscribe(
+        {
+          next: (res)=> {
+
+            this.openSnackBar("Updated Product Successfully","",3);
+            this.addProductForm.reset();
+            this.dialogRef.close("update");
+          },
+          error:(res)=>{
+            this.openSnackBar("Something Went wrong Deleting Product","",3)
+          }
+        }
+      );
+    }
+
   }
 
   openSnackBar(message: string, action: string, durationInSeconds : number = 3)

@@ -20,4 +20,13 @@ export class ApiService {
   {
     return this.http.get<any>(this.productListEndPoint);
   }
+
+  updateProduct(data: any, productId: number)
+  {
+      return this.http.put<any>(this.productListEndPoint+productId,data);
+  }
+
+  deleteProduct(productId:number){
+    return this.http.delete<any>(this.productListEndPoint+productId);
+  }
 }

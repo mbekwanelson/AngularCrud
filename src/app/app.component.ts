@@ -36,9 +36,16 @@ export class AppComponent implements OnInit
 
   openDialog(): void
   {
+
     this.dialog.open(DialogComponent,
       {
         width:"30%"
+      })
+      .afterClosed()
+      .subscribe(dialogRefCloseParameter=>{
+        if(dialogRefCloseParameter==="save"){
+          this.getAllProducts();
+        }
       });
   }
 
@@ -48,7 +55,7 @@ export class AppComponent implements OnInit
         next: (res) =>{
           console.log(res);
 
-          this.openSnackBar("Products Received From API","",3);
+          //this.openSnackBar("Data Received From API","",3);
 
           // Assign the data to the data source for the table to render
           this.dataSource = new MatTableDataSource(res);
@@ -92,7 +99,24 @@ export class AppComponent implements OnInit
       {
         width:"30%",
         data : row
+      }).afterClosed().subscribe(dialogRefCloseParameter=>{
+        if(dialogRefCloseParameter==="update"){
+          this.getAllProducts();
+        }
       });
+  }
+
+  deleteProduct(row: any){
+    this.apisrvc.deleteProduct(row.id).subscribe({
+      next:(res)=>{
+        this.openSnackBar("Product Deleted Successfully","",2);
+        this.getAllProducts();
+      },
+      error:(res)=>{
+
+      }
+    });
+
   }
 
 }
