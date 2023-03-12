@@ -12,3 +12,17 @@ mat-form-field{
 .example-radio-button {
   margin: 5px;
 }
+
+.btn{
+  margin-left: 2px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.horizontal-div{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
