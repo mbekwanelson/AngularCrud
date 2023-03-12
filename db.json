@@ -8,24 +8,6 @@
       "comment": "Tagheur Watch made with kindness",
       "date": "2023-03-12T22:00:00.000Z",
       "id": 1
-    },
-    {
-      "productName": "Tomato",
-      "productCategory": "Electronics",
-      "productAge": "Brand New",
-      "price": 600,
-      "comment": "Some very Expensive Tomato",
-      "date": "2023-03-04T22:00:00.000Z",
-      "id": 2
-    },
-    {
-      "productName": "Coffee",
-      "productCategory": "Electronics",
-      "productAge": "Brand New",
-      "price": 345782,
-      "comment": "Java hot",
-      "date": "2023-03-20T22:00:00.000Z",
-      "id": 3
     }
   ],
   "comments": [
